@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
-require('./config/database')
+// require('./config/database')
 
 const express = require("express");
 const app = express();
@@ -9,7 +9,7 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 
 // Controllers
-const authController = require("./controllers/auth.js");
+const authController = require("./controllers/auth");
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : "3000";
