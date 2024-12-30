@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
-// require('./config/database')
+require('./database/database')
+const session = require("express-session")
 
 const express = require("express");
 const app = express();
@@ -18,10 +19,19 @@ const port = process.env.PORT ? process.env.PORT : "3000";
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(morgan('dev'));
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: true,
+    })
+)
 
 // Public route
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("index.ejs", {
+    user: req.session.user
+  });
 });
 
 // Authentication routes
